@@ -1,44 +1,81 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import MainNav from "@/app/components/main-nav"
 import MainFooter from "@/app/components/main-footer"
 import { Button } from "@/components/ui/button"
-import { Clock, MapPin, Calendar } from "lucide-react"
+import { Clock, MapPin, Calendar, Loader2 } from "lucide-react"
 import Link from "next/link"
+import { DateTime } from "luxon"
 
-function getNextFriday(): Date {
-  const today = new Date()
-  const dayOfWeek = today.getDay() // 0 = Sunday, 5 = Friday
-  const daysUntilFriday = (5 - dayOfWeek + 7) % 7 || 7 // If today is Friday, get next Friday
-  const nextFriday = new Date(today)
-  nextFriday.setDate(today.getDate() + daysUntilFriday)
-  return nextFriday
+interface BibleStudyEvent {
+  id: string
+  title_en: string
+  title_zh?: string
+  start_time: string
+  location_en?: string
+  location_zh?: string
 }
 
-function formatDate(date: Date, language: "en" | "zh"): string {
+function formatDate(date: DateTime, language: "en" | "zh"): string {
   if (language === "en") {
-    return date.toLocaleDateString("en-US", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    })
+    return date.toFormat("EEEE, MMMM d, yyyy")
   } else {
-    return date.toLocaleDateString("zh-CN", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      weekday: "long"
-    })
+    return date.setLocale("zh-CN").toFormat("yyyy年M月d日 EEEE")
+  }
+}
+
+function formatTime(date: DateTime, language: "en" | "zh"): string {
+  if (language === "en") {
+    return date.toFormat("h:mm a")
+  } else {
+    const hour = date.hour
+    const minute = date.toFormat("mm")
+    if (hour < 12) {
+      return `上午 ${hour}:${minute}`
+    } else if (hour === 12) {
+      return `中午 12:${minute}`
+    } else {
+      return `晚上 ${hour - 12}:${minute}`
+    }
   }
 }
 
 export default function BibleStudyPage() {
   const [language, setLanguage] = useState<"en" | "zh">("en")
-  
-  const nextFriday = useMemo(() => getNextFriday(), [])
+  const [nextBibleStudy, setNextBibleStudy] = useState<BibleStudyEvent | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchNextBibleStudy = async () => {
+      try {
+        const today = DateTime.now().setZone('America/Los_Angeles').toFormat('yyyy-MM-dd')
+        const response = await fetch(`/api/events?start=${today}`)
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch events')
+        }
+        
+        const events = await response.json()
+        
+        // Find the first event that contains "Bible Study" in the title (case insensitive)
+        const bibleStudyEvent = events.find((event: BibleStudyEvent) => 
+          event.title_en.toLowerCase().includes('bible study')
+        )
+        
+        if (bibleStudyEvent) {
+          setNextBibleStudy(bibleStudyEvent)
+        }
+      } catch (error) {
+        console.error('Error fetching bible study event:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchNextBibleStudy()
+  }, [])
 
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "zh" : "en")
@@ -101,24 +138,44 @@ export default function BibleStudyPage() {
                 {language === "en" ? "Next Bible Study" : "下次查经"}
               </p>
               
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <Calendar className="h-8 w-8 text-[#fbf8f3]/60" />
-                <h2 className="text-3xl md:text-4xl font-bold text-[#fbf8f3]">
-                  {formatDate(nextFriday, language)}
-                </h2>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-[#fbf8f3]/80">
-                <div className="flex items-center gap-3">
-                  <Clock className="h-5 w-5 text-[#636363]" />
-                  <span className="text-lg">{language === "en" ? "8:00 PM" : "晚上 8:00"}</span>
+              {loading ? (
+                <div className="flex items-center justify-center py-4">
+                  <Loader2 className="h-8 w-8 animate-spin text-[#fbf8f3]/60" />
                 </div>
-                <div className="hidden sm:block w-px h-6 bg-[#636363]"></div>
-                <div className="flex items-center gap-3">
-                  <MapPin className="h-5 w-5 text-[#636363]" />
-                  <span className="text-lg">215 Topaz St, Milpitas, CA 95035</span>
-                </div>
-              </div>
+              ) : nextBibleStudy ? (
+                <>
+                  <div className="flex items-center justify-center gap-4 mb-4">
+                    <Calendar className="h-8 w-8 text-[#fbf8f3]/60" />
+                    <h2 className="text-3xl md:text-4xl font-bold text-[#fbf8f3]">
+                      {formatDate(DateTime.fromISO(nextBibleStudy.start_time).setZone('America/Los_Angeles'), language)}
+                    </h2>
+                  </div>
+                  
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-[#fbf8f3]/80">
+                    <div className="flex items-center gap-3">
+                      <Clock className="h-5 w-5 text-[#636363]" />
+                      <span className="text-lg">
+                        {formatTime(DateTime.fromISO(nextBibleStudy.start_time).setZone('America/Los_Angeles'), language)}
+                      </span>
+                    </div>
+                    <div className="hidden sm:block w-px h-6 bg-[#636363]"></div>
+                    <div className="flex items-center gap-3">
+                      <MapPin className="h-5 w-5 text-[#636363]" />
+                      <span className="text-lg">
+                        {language === "en" 
+                          ? (nextBibleStudy.location_en || "215 Topaz St, Milpitas, CA 95035")
+                          : (nextBibleStudy.location_zh || nextBibleStudy.location_en || "215 Topaz St, Milpitas, CA 95035")}
+                      </span>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <p className="text-[#fbf8f3]/70 text-lg py-4">
+                  {language === "en" 
+                    ? "No upcoming Bible Study scheduled. Check back soon!"
+                    : "暂无即将举行的查经。请稍后再来查看！"}
+                </p>
+              )}
             </div>
           </motion.div>
         </section>
@@ -234,7 +291,7 @@ export default function BibleStudyPage() {
               className="max-w-2xl mx-auto"
             >
               <h2 className="text-2xl font-bold text-[#fbf8f3] mb-4">
-                {language === "en" ? "Join Us This Friday" : "本周五加入我们"}
+                {language === "en" ? "Join Us for Bible Study" : "加入我们的查经"}
               </h2>
               <p className="text-[#fbf8f3]/70 mb-8">
                 {language === "en"

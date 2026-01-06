@@ -563,9 +563,22 @@ export default function AdminPage() {
     
     try {
       const method = editingEvent?.id ? 'PUT' : 'POST'
+      
+      // Convert datetime-local values to Los Angeles timezone ISO strings
+      const startTimeLA = DateTime.fromFormat(eventForm.start_time, "yyyy-MM-dd'T'HH:mm", { zone: 'America/Los_Angeles' })
+      const endTimeLA = eventForm.end_time 
+        ? DateTime.fromFormat(eventForm.end_time, "yyyy-MM-dd'T'HH:mm", { zone: 'America/Los_Angeles' })
+        : null
+      
+      const eventData = {
+        ...eventForm,
+        start_time: startTimeLA.toISO(),
+        end_time: endTimeLA ? endTimeLA.toISO() : null,
+      }
+      
       const body = editingEvent?.id 
-        ? { ...eventForm, id: editingEvent.id }
-        : eventForm
+        ? { ...eventData, id: editingEvent.id }
+        : eventData
       
       const response = await fetch('/api/events', {
         method,
@@ -879,7 +892,7 @@ export default function AdminPage() {
                           description_zh: "",
                           location_en: "",
                           location_zh: "",
-                          start_time: DateTime.now().toFormat("yyyy-MM-dd'T'HH:mm"),
+                          start_time: DateTime.now().setZone('America/Los_Angeles').toFormat("yyyy-MM-dd'T'HH:mm"),
                           end_time: "",
                           is_public: true
                         })

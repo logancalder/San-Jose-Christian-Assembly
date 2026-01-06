@@ -37,8 +37,10 @@ export default function ConnectPage() {
         }),
       })
 
+      const data = await response.json()
+      
       if (!response.ok) {
-        throw new Error("Failed to send email")
+        throw new Error(data.error || "Failed to send email")
       }
 
       toast({
@@ -54,12 +56,13 @@ export default function ConnectPage() {
       setMessage("")
     } catch (error) {
       console.error("Error sending email:", error)
+      const errorMessage = error instanceof Error ? error.message : "Unknown error"
       toast({
         title: language === "en" ? "Error" : "错误",
         description: language === "en"
-          ? "Failed to send message. Please try again later."
-          : "发送消息失败。请稍后重试。",
-        duration: 3000,
+          ? `Failed to send message: ${errorMessage}`
+          : `发送消息失败：${errorMessage}`,
+        duration: 5000,
       })
     } finally {
       setIsSubmitting(false)
