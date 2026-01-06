@@ -1,0 +1,14 @@
+This is a placeholder file.
+
+To add images to the gallery:
+
+1. Add image files (JPG, PNG, GIF, WEBP) to this directory or its subdirectories.
+2. The gallery page will automatically display all images from this directory.
+3. Images in subdirectories will be categorized based on the subdirectory name.
+
+Example structure:
+- public/gallery/events/summer-camp-2023.jpg
+- public/gallery/worship/sunday-service-2023.jpg
+- public/gallery/community/food-drive-2023.jpg
+
+See the README.md file for more detailed instructions. 

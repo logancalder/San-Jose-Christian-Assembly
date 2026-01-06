@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* SJCA Brand Colors */
+    --sjca-black: #272727;
+    --sjca-grey: #313437;
+    --sjca-off-white: #fbf8f3;
+    --sjca-white: #ffffff;
+    --sjca-light-grey: #636363;
+    --sjca-hover: #7e7e7e;
+
+    /* Shadcn Theme Variables */
+    --background: 40 33% 97%; /* off-white */
+    --foreground: 210 5% 18%; /* sjca-black */
+    --card: 0 0% 100%;
+    --card-foreground: 210 5% 18%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 5% 18%;
+    --primary: 210 5% 18%; /* sjca-black */
+    --primary-foreground: 40 33% 97%;
+    --secondary: 210 5% 21%; /* sjca-grey */
+    --secondary-foreground: 40 33% 97%;
+    --muted: 210 5% 21%;
+    --muted-foreground: 0 0% 39%; /* light-grey */
+    --accent: 40 33% 97%;
+    --accent-foreground: 210 5% 18%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 5% 30%;
+    --input: 210 5% 30%;
+    --ring: 210 5% 18%;
+    --radius: 0;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+/* Use DM Sans as primary font */
+body,
+.font-sans {
+  font-family: "DM Sans", sans-serif;
+}
+
+/* SJCA Color Utilities */
+.bg-sjca-black { background-color: #272727; }
+.bg-sjca-grey { background-color: #313437; }
+.bg-sjca-off-white { background-color: #fbf8f3; }
+.bg-sjca-light-grey { background-color: #636363; }
+
+.text-sjca-black { color: #272727; }
+.text-sjca-grey { color: #313437; }
+.text-sjca-off-white { color: #fbf8f3; }
+.text-sjca-light-grey { color: #636363; }
+.text-sjca-hover { color: #7e7e7e; }
+
+.border-sjca-black { border-color: #272727; }
+.border-sjca-grey { border-color: #313437; }
+.border-sjca-off-white { border-color: #fbf8f3; }
