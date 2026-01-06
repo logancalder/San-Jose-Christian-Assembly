@@ -1159,8 +1159,8 @@ export default function AdminPage() {
 
       {/* Event Dialog */}
       <Dialog open={eventDialogOpen} onOpenChange={setEventDialogOpen}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white">
-          <DialogHeader>
+        <DialogContent className="max-w-2xl bg-white flex flex-col max-h-[90vh]" onOpenAutoFocus={(e) => e.preventDefault()}>
+          <DialogHeader className="flex-shrink-0">
             <DialogTitle className="flex items-center gap-2 text-[#272727]">
               <CalendarDays className="h-5 w-5" />
               {editingEvent 
@@ -1169,7 +1169,7 @@ export default function AdminPage() {
             </DialogTitle>
           </DialogHeader>
           
-          <div className="space-y-6 py-4">
+          <div className="flex-1 overflow-y-auto space-y-6 py-4 pr-2">
             {/* Date and Time */}
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -1300,7 +1300,7 @@ export default function AdminPage() {
             </div>
           </div>
 
-          <DialogFooter>
+          <DialogFooter className="flex-shrink-0 pt-4 border-t border-[#e5e0d8]">
             <Button variant="outline" onClick={() => setEventDialogOpen(false)} className="border-[#e5e0d8]">
               {language === "en" ? "Cancel" : "取消"}
             </Button>

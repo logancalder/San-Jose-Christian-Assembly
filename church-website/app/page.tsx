@@ -556,11 +556,11 @@ export default function Home() {
                         </div>
                         <p className="text-[#636363] text-sm mb-3">
                           {language === "en" 
-                            ? "A safe space for teens to build friendships and grow in faith."
-                            : "一个让青少年建立友谊并在信仰中成长的安全空间。"}
+                            ? "A safe space for children and youth to build friendships and grow in faith."
+                            : "一个让儿童和青少年建立友谊并在信仰中成长的安全空间。"}
                         </p>
                         <p className="text-[#272727] text-sm font-medium">
-                          {language === "en" ? "Ages 12-18" : "12-18岁"}
+                          {language === "en" ? "Ages 3-18" : "3-18岁"}
                         </p>
                       </div>
                     </div>

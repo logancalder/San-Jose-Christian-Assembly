@@ -1,48 +1,44 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useMemo } from "react"
 import { motion } from "framer-motion"
 import MainNav from "@/app/components/main-nav"
 import MainFooter from "@/app/components/main-footer"
 import { Button } from "@/components/ui/button"
-import { Clock, MapPin } from "lucide-react"
+import { Clock, MapPin, Calendar } from "lucide-react"
 import Link from "next/link"
 
-interface BibleStudy {
-  date: string;
-  verse: string;
-  description: string;
-  description_cn: string;
+function getNextFriday(): Date {
+  const today = new Date()
+  const dayOfWeek = today.getDay() // 0 = Sunday, 5 = Friday
+  const daysUntilFriday = (5 - dayOfWeek + 7) % 7 || 7 // If today is Friday, get next Friday
+  const nextFriday = new Date(today)
+  nextFriday.setDate(today.getDate() + daysUntilFriday)
+  return nextFriday
+}
+
+function formatDate(date: Date, language: "en" | "zh"): string {
+  if (language === "en") {
+    return date.toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    })
+  } else {
+    return date.toLocaleDateString("zh-CN", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      weekday: "long"
+    })
+  }
 }
 
 export default function BibleStudyPage() {
   const [language, setLanguage] = useState<"en" | "zh">("en")
-  const [bibleStudy, setBibleStudy] = useState<BibleStudy | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    const fetchBibleStudy = async () => {
-      try {
-        const response = await fetch('/api/bible-studies');
-        const data = await response.json();
-        
-        if (!response.ok) {
-          throw new Error(data.error || 'Failed to fetch bible study data');
-        }
-        
-        if (data && data.length > 0) {
-          setBibleStudy(data[0]);
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBibleStudy();
-  }, []);
+  
+  const nextFriday = useMemo(() => getNextFriday(), [])
 
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "zh" : "en")
@@ -61,8 +57,8 @@ export default function BibleStudyPage() {
       />
 
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
+        {/* Hero Section with Next Bible Study */}
+        <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
             <img
               src="/pexels-lum3n-44775-167699.jpg"
@@ -71,7 +67,8 @@ export default function BibleStudyPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-b from-[#272727]/70 via-[#272727]/60 to-[#313437]"></div>
           </div>
-          <div className="relative z-10 text-center text-[#fbf8f3] px-4">
+          
+          <div className="relative z-10 text-center text-[#fbf8f3] px-4 mb-12">
             <motion.h1 
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -91,84 +88,39 @@ export default function BibleStudyPage() {
                 : "一起深入研读神的话语"}
             </motion.p>
           </div>
-        </section>
 
-        {/* Current Study Section - DARK */}
-        <section className="py-20 bg-[#313437]">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              {loading ? (
-                <div className="text-center py-12">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#fbf8f3] mx-auto mb-4"></div>
-                  <p className="text-lg text-[#fbf8f3]/70">
-                    {language === "en" ? "Loading..." : "加载中..."}
-                  </p>
+          {/* Next Bible Study Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="relative z-10 w-full max-w-4xl mx-auto px-4 mt-8"
+          >
+            <div className="bg-[#272727] p-8 lg:p-12 text-center">
+              <p className="text-xs uppercase tracking-[0.3em] text-[#636363] mb-4">
+                {language === "en" ? "Next Bible Study" : "下次查经"}
+              </p>
+              
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <Calendar className="h-8 w-8 text-[#fbf8f3]/60" />
+                <h2 className="text-3xl md:text-4xl font-bold text-[#fbf8f3]">
+                  {formatDate(nextFriday, language)}
+                </h2>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-[#fbf8f3]/80">
+                <div className="flex items-center gap-3">
+                  <Clock className="h-5 w-5 text-[#636363]" />
+                  <span className="text-lg">{language === "en" ? "8:00 PM" : "晚上 8:00"}</span>
                 </div>
-              ) : error ? (
-                <div className="text-center py-12">
-                  <p className="text-red-400 text-lg">{error}</p>
+                <div className="hidden sm:block w-px h-6 bg-[#636363]"></div>
+                <div className="flex items-center gap-3">
+                  <MapPin className="h-5 w-5 text-[#636363]" />
+                  <span className="text-lg">215 Topaz St, Milpitas, CA 95035</span>
                 </div>
-              ) : bibleStudy ? (
-                <div className="grid lg:grid-cols-2 gap-0 items-stretch">
-                  {/* Study Info */}
-                  <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeInVariants}
-                    transition={{ duration: 0.6 }}
-                    className="bg-[#272727] p-10 lg:p-14"
-                  >
-                    <p className="text-xs uppercase tracking-[0.3em] text-[#636363] mb-4">
-                      {language === "en" ? "Current Study" : "当前学习"}
-                    </p>
-                    <h2 className="text-3xl font-bold text-[#fbf8f3] mb-6">
-                      {bibleStudy.verse}
-                    </h2>
-                    <p className="text-lg text-[#fbf8f3]/70 leading-relaxed mb-8">
-                      {language === "en"
-                        ? bibleStudy.description
-                        : bibleStudy.description_cn}
-                    </p>
-                    <div className="space-y-3 text-[#fbf8f3]/80">
-                      <div className="flex items-center gap-3">
-                        <Clock className="h-5 w-5 text-[#636363]" />
-                        <span>{language === "en" ? "Friday at 8:00 PM" : "每周五晚上8:00"}</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <MapPin className="h-5 w-5 text-[#636363]" />
-                        <span>215 Topaz St, Milpitas, CA 95035</span>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Study Image */}
-                  <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeInVariants}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="h-[400px] lg:h-auto"
-                  >
-                    <img
-                      src="https://svnfvvimrctyszdksuak.supabase.co/storage/v1/object/public/biblestudies//judges.png"
-                      alt="Current Bible Study"
-                      className="w-full h-full object-cover"
-                    />
-                  </motion.div>
-                </div>
-              ) : (
-                <div className="text-center py-12 bg-[#272727] border border-[#313437]">
-                  <p className="text-[#fbf8f3]/70 text-lg">
-                    {language === "en" 
-                      ? "No current bible study available" 
-                      : "暂无查经信息"}
-                  </p>
-                </div>
-              )}
+              </div>
             </div>
-          </div>
+          </motion.div>
         </section>
 
         {/* What to Expect - LIGHT with Photos */}
@@ -203,17 +155,17 @@ export default function BibleStudyPage() {
                   <div className="aspect-[4/3] overflow-hidden mb-4">
                     <img 
                       src="/easter_25/DSC_0445.jpg" 
-                      alt="Group Discussion"
+                      alt="Worship"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                   <h3 className="text-xl font-bold text-[#272727] mb-2">
-                    {language === "en" ? "Group Discussion" : "小组讨论"}
+                    {language === "en" ? "Worship" : "敬拜"}
                   </h3>
                   <p className="text-[#636363]">
                     {language === "en"
-                      ? "Interactive discussion in small groups to share insights and questions."
-                      : "小组互动讨论，分享见解和问题。"}
+                      ? "We begin with a time of worship, lifting our voices in praise together."
+                      : "我们以敬拜开始，一同高声赞美。"}
                   </p>
                 </motion.div>
 
@@ -228,17 +180,17 @@ export default function BibleStudyPage() {
                   <div className="aspect-[4/3] overflow-hidden mb-4">
                     <img 
                       src="/easter_25/DSC_0471.jpg" 
-                      alt="Biblical Teaching"
+                      alt="Discussion"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                   <h3 className="text-xl font-bold text-[#272727] mb-2">
-                    {language === "en" ? "Biblical Teaching" : "圣经教导"}
+                    {language === "en" ? "Discussion" : "讨论"}
                   </h3>
                   <p className="text-[#636363]">
                     {language === "en"
-                      ? "In-depth teaching from experienced leaders and pastors."
-                      : "经验丰富的领袖和牧师的深入教导。"}
+                      ? "Going over an outline of selected verses, exploring scripture together."
+                      : "一同研读精选经文大纲，深入探讨圣经。"}
                   </p>
                 </motion.div>
 
@@ -253,17 +205,17 @@ export default function BibleStudyPage() {
                   <div className="aspect-[4/3] overflow-hidden mb-4">
                     <img 
                       src="/easter_25/DSC_0519.jpg" 
-                      alt="Prayer Time"
+                      alt="Fellowship"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                   <h3 className="text-xl font-bold text-[#272727] mb-2">
-                    {language === "en" ? "Prayer Time" : "祷告时间"}
+                    {language === "en" ? "Fellowship" : "团契"}
                   </h3>
                   <p className="text-[#636363]">
                     {language === "en"
-                      ? "Dedicated time for group prayer and spiritual growth."
-                      : "专注于小组祷告和属灵成长的时间。"}
+                      ? "12 small groups to choose from, building meaningful connections with others."
+                      : "12个小组可供选择，与他人建立有意义的联系。"}
                   </p>
                 </motion.div>
               </div>
