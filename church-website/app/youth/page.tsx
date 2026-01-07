@@ -63,7 +63,7 @@ export default function YouthPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
+        <section className="relative h-[40vh] sm:h-[50vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
             <img
               src="/easter_25/DSC_0792.jpg"
@@ -77,7 +77,7 @@ export default function YouthPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="font-bold text-4xl md:text-6xl mb-4"
+              className="font-bold text-3xl sm:text-4xl md:text-6xl mb-3 sm:mb-4"
             >
               {language === "en" ? "YOUTH MINISTRY" : "青年事工"}
             </motion.h1>
@@ -85,7 +85,7 @@ export default function YouthPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xs uppercase tracking-[0.3em] text-[#fbf8f3]/50"
+              className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.3em] text-[#fbf8f3]/50"
             >
               {language === "en" 
                 ? "Growing together in faith and fellowship"
@@ -98,7 +98,7 @@ export default function YouthPage() {
         {youthPrograms.map((program, index) => (
           <section 
             key={index}
-            className={`py-20 ${index % 2 === 0 ? 'bg-[#fbf8f3]' : 'bg-[#313437]'}`}
+            className={`py-10 sm:py-20 ${index % 2 === 0 ? 'bg-[#fbf8f3]' : 'bg-[#313437]'}`}
           >
             <div className="container mx-auto px-4">
               <div className="max-w-6xl mx-auto">
@@ -111,7 +111,7 @@ export default function YouthPage() {
                   className="grid lg:grid-cols-2 gap-0 items-stretch"
                 >
                   {/* Image */}
-                  <div className={`h-[350px] lg:h-auto ${index % 2 !== 0 ? 'lg:order-2' : ''}`}>
+                  <div className={`h-[250px] sm:h-[350px] lg:h-auto ${index % 2 !== 0 ? 'lg:order-2' : ''}`}>
                     <img
                       src={program.image}
                       alt={language === "en" ? program.name.en : program.name.zh}
@@ -120,18 +120,18 @@ export default function YouthPage() {
                   </div>
 
                   {/* Content */}
-                  <div className={`p-10 lg:p-14 flex flex-col justify-center ${
+                  <div className={`p-6 sm:p-10 lg:p-14 flex flex-col justify-center text-center lg:text-left ${
                     index % 2 === 0 
                       ? 'bg-[#313437]' 
                       : 'bg-[#272727]'
                   } ${index % 2 !== 0 ? 'lg:order-1' : ''}`}>
-                    <h2 className="text-3xl font-bold text-[#fbf8f3] mb-4">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-[#fbf8f3] mb-3 sm:mb-4">
                       {language === "en" ? program.name.en : program.name.zh}
                     </h2>
-                    <p className="text-lg text-[#fbf8f3]/70 leading-relaxed mb-6">
+                    <p className="text-base sm:text-lg text-[#fbf8f3]/70 leading-relaxed mb-4 sm:mb-6">
                       {language === "en" ? program.description.en : program.description.zh}
                     </p>
-                    <div>
+                    <div className="mx-auto lg:mx-0">
                       <Button className="rounded-none bg-[#fbf8f3] text-[#272727] hover:bg-white">
                         {language === "en" ? "Learn More" : "了解更多"}
                       </Button>
@@ -144,7 +144,7 @@ export default function YouthPage() {
         ))}
 
         {/* CTA - DARK */}
-        <section className="py-16 bg-[#313437]">
+        <section className="py-10 sm:py-16 bg-[#313437]">
           <div className="container mx-auto px-4 text-center">
             <motion.div
               initial="hidden"
@@ -153,16 +153,16 @@ export default function YouthPage() {
               variants={fadeInVariants}
               className="max-w-2xl mx-auto"
             >
-              <h2 className="text-2xl font-bold text-[#fbf8f3] mb-4">
+              <h2 className="text-xl sm:text-2xl font-bold text-[#fbf8f3] mb-3 sm:mb-4">
                 {language === "en" ? "Get Involved" : "参与其中"}
               </h2>
-              <p className="text-[#fbf8f3]/70 mb-8">
+              <p className="text-[#fbf8f3]/70 mb-6 sm:mb-8 text-sm sm:text-base px-2">
                 {language === "en"
                   ? "Join us this week and be part of our youth community!"
                   : "本周加入我们，成为我们青年社区的一部分！"}
               </p>
               <Link href="/connect">
-                <Button className="rounded-none bg-[#fbf8f3] text-[#272727] hover:bg-white px-8">
+                <Button className="rounded-none bg-[#fbf8f3] text-[#272727] hover:bg-white px-6 sm:px-8">
                   {language === "en" ? "Contact Us" : "联系我们"}
                 </Button>
               </Link>

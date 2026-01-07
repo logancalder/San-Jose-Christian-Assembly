@@ -105,12 +105,12 @@ export default function BibleStudyPage() {
             <div className="absolute inset-0 bg-gradient-to-b from-[#272727]/70 via-[#272727]/60 to-[#313437]"></div>
           </div>
           
-          <div className="relative z-10 text-center text-[#fbf8f3] px-4 mb-12">
+          <div className="relative z-10 text-center text-[#fbf8f3] px-4 mb-8 sm:mb-12">
             <motion.h1 
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="font-bold text-4xl md:text-6xl mb-4"
+              className="font-bold text-3xl sm:text-4xl md:text-6xl mb-3 sm:mb-4"
             >
               {language === "en" ? "BIBLE STUDY" : "查经"}
             </motion.h1>
@@ -118,7 +118,7 @@ export default function BibleStudyPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xs uppercase tracking-[0.3em] text-[#fbf8f3]/50"
+              className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.3em] text-[#fbf8f3]/50"
             >
               {language === "en" 
                 ? "Dive deeper into God's Word together"
@@ -131,37 +131,37 @@ export default function BibleStudyPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="relative z-10 w-full max-w-4xl mx-auto px-4 mt-8"
+            className="relative z-10 w-full max-w-4xl mx-auto px-4 mt-4 sm:mt-8"
           >
-            <div className="bg-[#272727] p-8 lg:p-12 text-center">
-              <p className="text-xs uppercase tracking-[0.3em] text-[#636363] mb-4">
+            <div className="bg-[#272727] p-5 sm:p-8 lg:p-12 text-center">
+              <p className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.3em] text-[#636363] mb-3 sm:mb-4">
                 {language === "en" ? "Next Bible Study" : "下次查经"}
               </p>
               
               {loading ? (
                 <div className="flex items-center justify-center py-4">
-                  <Loader2 className="h-8 w-8 animate-spin text-[#fbf8f3]/60" />
+                  <Loader2 className="h-6 w-6 sm:h-8 sm:w-8 animate-spin text-[#fbf8f3]/60" />
                 </div>
               ) : nextBibleStudy ? (
                 <>
-                  <div className="flex items-center justify-center gap-4 mb-4">
-                    <Calendar className="h-8 w-8 text-[#fbf8f3]/60" />
-                    <h2 className="text-3xl md:text-4xl font-bold text-[#fbf8f3]">
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-3 sm:mb-4">
+                    <Calendar className="h-6 w-6 sm:h-8 sm:w-8 text-[#fbf8f3]/60" />
+                    <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-[#fbf8f3]">
                       {formatDate(DateTime.fromISO(nextBibleStudy.start_time).setZone('America/Los_Angeles'), language)}
                     </h2>
                   </div>
                   
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-[#fbf8f3]/80">
-                    <div className="flex items-center gap-3">
-                      <Clock className="h-5 w-5 text-[#636363]" />
-                      <span className="text-lg">
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-[#fbf8f3]/80">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-[#636363]" />
+                      <span className="text-base sm:text-lg">
                         {formatTime(DateTime.fromISO(nextBibleStudy.start_time).setZone('America/Los_Angeles'), language)}
                       </span>
                     </div>
                     <div className="hidden sm:block w-px h-6 bg-[#636363]"></div>
-                    <div className="flex items-center gap-3">
-                      <MapPin className="h-5 w-5 text-[#636363]" />
-                      <span className="text-lg">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-[#636363]" />
+                      <span className="text-sm sm:text-lg">
                         {language === "en" 
                           ? (nextBibleStudy.location_en || "215 Topaz St, Milpitas, CA 95035")
                           : (nextBibleStudy.location_zh || nextBibleStudy.location_en || "215 Topaz St, Milpitas, CA 95035")}
@@ -170,7 +170,7 @@ export default function BibleStudyPage() {
                   </div>
                 </>
               ) : (
-                <p className="text-[#fbf8f3]/70 text-lg py-4">
+                <p className="text-[#fbf8f3]/70 text-base sm:text-lg py-4">
                   {language === "en" 
                     ? "No upcoming Bible Study scheduled. Check back soon!"
                     : "暂无即将举行的查经。请稍后再来查看！"}
@@ -181,7 +181,7 @@ export default function BibleStudyPage() {
         </section>
 
         {/* What to Expect - LIGHT with Photos */}
-        <section className="py-20 bg-[#fbf8f3]">
+        <section className="py-12 sm:py-20 bg-[#fbf8f3]">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <motion.div
@@ -190,12 +190,12 @@ export default function BibleStudyPage() {
                 viewport={{ once: true }}
                 variants={fadeInVariants}
                 transition={{ duration: 0.6 }}
-                className="text-center mb-12"
+                className="text-center mb-8 sm:mb-12"
               >
-                <p className="text-xs uppercase tracking-[0.3em] text-[#636363] mb-2">
+                <p className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.3em] text-[#636363] mb-2">
                   {language === "en" ? "What We Do" : "我们做什么"}
                 </p>
-                <h2 className="text-3xl font-bold text-[#272727]">
+                <h2 className="text-2xl sm:text-3xl font-bold text-[#272727]">
                   {language === "en" ? "What to Expect" : "学习方式"}
                 </h2>
               </motion.div>
@@ -207,19 +207,19 @@ export default function BibleStudyPage() {
                   viewport={{ once: true }}
                   variants={fadeInVariants}
                   transition={{ duration: 0.6 }}
-                  className="group"
+                  className="group text-center md:text-left"
                 >
-                  <div className="aspect-[4/3] overflow-hidden mb-4">
+                  <div className="aspect-[4/3] overflow-hidden mb-3 sm:mb-4">
                     <img 
                       src="/easter_25/DSC_0445.jpg" 
                       alt="Worship"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <h3 className="text-xl font-bold text-[#272727] mb-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#272727] mb-2">
                     {language === "en" ? "Worship" : "敬拜"}
                   </h3>
-                  <p className="text-[#636363]">
+                  <p className="text-[#636363] text-sm sm:text-base">
                     {language === "en"
                       ? "We begin with a time of worship, lifting our voices in praise together."
                       : "我们以敬拜开始，一同高声赞美。"}
@@ -232,19 +232,19 @@ export default function BibleStudyPage() {
                   viewport={{ once: true }}
                   variants={fadeInVariants}
                   transition={{ duration: 0.6, delay: 0.1 }}
-                  className="group"
+                  className="group text-center md:text-left"
                 >
-                  <div className="aspect-[4/3] overflow-hidden mb-4">
+                  <div className="aspect-[4/3] overflow-hidden mb-3 sm:mb-4">
                     <img 
                       src="/easter_25/DSC_0471.jpg" 
                       alt="Discussion"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <h3 className="text-xl font-bold text-[#272727] mb-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#272727] mb-2">
                     {language === "en" ? "Discussion" : "讨论"}
                   </h3>
-                  <p className="text-[#636363]">
+                  <p className="text-[#636363] text-sm sm:text-base">
                     {language === "en"
                       ? "Going over an outline of selected verses, exploring scripture together."
                       : "一同研读精选经文大纲，深入探讨圣经。"}
@@ -257,19 +257,19 @@ export default function BibleStudyPage() {
                   viewport={{ once: true }}
                   variants={fadeInVariants}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="group"
+                  className="group text-center md:text-left"
                 >
-                  <div className="aspect-[4/3] overflow-hidden mb-4">
+                  <div className="aspect-[4/3] overflow-hidden mb-3 sm:mb-4">
                     <img 
                       src="/easter_25/DSC_0519.jpg" 
                       alt="Fellowship"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <h3 className="text-xl font-bold text-[#272727] mb-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#272727] mb-2">
                     {language === "en" ? "Fellowship" : "团契"}
                   </h3>
-                  <p className="text-[#636363]">
+                  <p className="text-[#636363] text-sm sm:text-base">
                     {language === "en"
                       ? "12 small groups to choose from, building meaningful connections with others."
                       : "12个小组可供选择，与他人建立有意义的联系。"}
@@ -281,7 +281,7 @@ export default function BibleStudyPage() {
         </section>
 
         {/* CTA - DARK */}
-        <section className="py-16 bg-[#313437]">
+        <section className="py-10 sm:py-16 bg-[#313437]">
           <div className="container mx-auto px-4 text-center">
             <motion.div
               initial="hidden"
@@ -290,16 +290,16 @@ export default function BibleStudyPage() {
               variants={fadeInVariants}
               className="max-w-2xl mx-auto"
             >
-              <h2 className="text-2xl font-bold text-[#fbf8f3] mb-4">
+              <h2 className="text-xl sm:text-2xl font-bold text-[#fbf8f3] mb-3 sm:mb-4">
                 {language === "en" ? "Join Us for Bible Study" : "加入我们的查经"}
               </h2>
-              <p className="text-[#fbf8f3]/70 mb-8">
+              <p className="text-[#fbf8f3]/70 mb-6 sm:mb-8 text-sm sm:text-base px-2">
                 {language === "en"
                   ? "Everyone is welcome, whether you're new to the Bible or have been studying for years."
                   : "无论您是圣经新手还是学习多年，我们都欢迎您。"}
               </p>
               <Link href="/connect">
-                <Button className="rounded-none bg-[#fbf8f3] text-[#272727] hover:bg-white px-8">
+                <Button className="rounded-none bg-[#fbf8f3] text-[#272727] hover:bg-white px-6 sm:px-8">
                   {language === "en" ? "Get Connected" : "联系我们"}
                 </Button>
               </Link>

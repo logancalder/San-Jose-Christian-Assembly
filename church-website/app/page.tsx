@@ -137,7 +137,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="font-bold text-4xl md:text-6xl lg:text-7xl mb-4 tracking-tight"
+                className="font-bold text-2xl sm:text-4xl md:text-6xl lg:text-7xl mb-4 tracking-tight px-2"
               >
                 {language === "en" ? "SAN JOSE CHRISTIAN ASSEMBLY" : "圣何塞基督教会"}
               </motion.h1>
@@ -145,7 +145,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-xs uppercase tracking-[0.3em] text-[#fbf8f3]/80"
+                className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.3em] text-[#fbf8f3] px-4"
               >
                 {language === "en" ? "Growing together in faith, hope, and love" : "在信心、盼望和爱中一起成长"}
               </motion.p>
@@ -191,8 +191,8 @@ export default function Home() {
                   <div className="h-4 bg-[#272727] rounded w-1/3 mx-auto"></div>
                 </div>
               ) : verseData ? (
-                <Link href={`/daily-bread?date=${verseData.date}`} className="group block">
-                  <blockquote className="text-xl md:text-2xl lg:text-3xl font-light italic leading-relaxed text-[#fbf8f3] group-hover:text-white transition-colors">
+                <Link href={`/daily-bread?date=${verseData.date}`} className="group block px-2">
+                  <blockquote className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-light italic leading-relaxed text-[#fbf8f3] group-hover:text-white transition-colors">
                     "{(() => {
                       const content = language === "en" ? verseData.content : verseData.content_zh;
                       if (!content) return "";
@@ -256,19 +256,19 @@ export default function Home() {
                   viewport={{ once: true }}
                   variants={fadeInVariants}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="bg-[#313437] p-10 lg:p-14 flex flex-col justify-center"
+                  className="bg-[#313437] p-6 sm:p-10 lg:p-14 flex flex-col justify-center text-center lg:text-left"
                 >
-                  <h2 className="text-3xl md:text-4xl font-bold text-[#fbf8f3] mb-6 leading-tight">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#fbf8f3] mb-4 sm:mb-6 leading-tight">
                     {language === "en" 
                       ? "Welcome to Your New Family in Christ" 
                       : "欢迎加入你在基督里的新家庭"}
                   </h2>
-                  <p className="text-lg text-[#fbf8f3]/70 leading-relaxed mb-8">
+                  <p className="text-base sm:text-lg text-[#fbf8f3]/70 leading-relaxed mb-6 sm:mb-8">
                     {language === "en"
                       ? "At San Jose Christian Assembly, we believe in growing together through faith, fellowship, and service. Whether you're seeking spiritual guidance or a community to call home, we invite you to join us on this journey."
                       : "在圣何塞基督教会，我们相信通过信仰、团契和服务一起成长。无论您是在寻求灵性指导还是一个可以称为家的社区，我们都邀请您与我们一起踏上这段旅程。"}
                   </p>
-                  <Link href="/staff">
+                  <Link href="/staff" className="mx-auto lg:mx-0">
                     <Button className="rounded-none bg-[#fbf8f3] text-[#272727] hover:bg-white px-6 w-fit">
                       {language === "en" ? "Meet Our Team" : "认识我们的团队"}
                       <ArrowRight className="h-4 w-4 ml-2" />
@@ -292,44 +292,44 @@ export default function Home() {
                   viewport={{ once: true }}
                   variants={fadeInVariants}
                   transition={{ duration: 0.6 }}
-                  className="bg-[#272727] p-10 lg:p-14 flex flex-col justify-center order-2 lg:order-1"
+                  className="bg-[#272727] p-6 sm:p-10 lg:p-14 flex flex-col justify-center order-2 lg:order-1"
                 >
-                  <h2 className="text-3xl md:text-4xl font-bold text-[#fbf8f3] mb-8">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#fbf8f3] mb-6 sm:mb-8 text-center lg:text-left">
                     {language === "en" ? "Join Us For Worship" : "欢迎参加敬拜"}
                   </h2>
-                  <div className="space-y-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-[#313437] flex items-center justify-center flex-shrink-0">
-                        <Calendar className="h-5 w-5 text-[#fbf8f3]" />
+                  <div className="space-y-4 sm:space-y-6">
+                    <div className="flex items-start gap-3 sm:gap-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#313437] flex items-center justify-center flex-shrink-0">
+                        <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-[#fbf8f3]" />
                       </div>
                       <div>
-                        <p className="text-[#fbf8f3] font-medium text-lg">{language === "en" ? "Every Sunday" : "每周日"}</p>
-                        <p className="text-[#636363]">{language === "en" ? "Main Service" : "主日崇拜"}</p>
+                        <p className="text-[#fbf8f3] font-medium text-base sm:text-lg">{language === "en" ? "Every Sunday" : "每周日"}</p>
+                        <p className="text-[#636363] text-sm sm:text-base">{language === "en" ? "Main Service" : "主日崇拜"}</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-[#313437] flex items-center justify-center flex-shrink-0">
-                        <Clock className="h-5 w-5 text-[#fbf8f3]" />
+                    <div className="flex items-start gap-3 sm:gap-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#313437] flex items-center justify-center flex-shrink-0">
+                        <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-[#fbf8f3]" />
                       </div>
                       <div>
-                        <p className="text-[#fbf8f3] font-medium text-lg">9:30 AM</p>
-                        <p className="text-[#636363]">{language === "en" ? "Bilingual Service" : "双语崇拜"}</p>
+                        <p className="text-[#fbf8f3] font-medium text-base sm:text-lg">9:30 AM</p>
+                        <p className="text-[#636363] text-sm sm:text-base">{language === "en" ? "Bilingual Service" : "双语崇拜"}</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-[#313437] flex items-center justify-center flex-shrink-0">
-                        <MapPin className="h-5 w-5 text-[#fbf8f3]" />
+                    <div className="flex items-start gap-3 sm:gap-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#313437] flex items-center justify-center flex-shrink-0">
+                        <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-[#fbf8f3]" />
                       </div>
                       <div>
-                        <p className="text-[#fbf8f3] font-medium text-lg">215 Topaz St</p>
-                        <p className="text-[#636363]">Milpitas, CA 95035</p>
+                        <p className="text-[#fbf8f3] font-medium text-base sm:text-lg">215 Topaz St</p>
+                        <p className="text-[#636363] text-sm sm:text-base">Milpitas, CA 95035</p>
                       </div>
                     </div>
                   </div>
                   <Link 
                     href="https://maps.google.com/?q=215+Topaz+St,+Milpitas,+CA+95035"
                     target="_blank"
-                    className="inline-flex items-center gap-2 mt-8 text-[#636363] hover:text-[#fbf8f3] transition-colors"
+                    className="inline-flex items-center justify-center lg:justify-start gap-2 mt-6 sm:mt-8 text-[#636363] hover:text-[#fbf8f3] transition-colors"
                   >
                     {language === "en" ? "Get Directions" : "获取路线"}
                     <ArrowRight className="h-4 w-4" />
@@ -455,22 +455,22 @@ export default function Home() {
                 </div>
 
                 {/* Pastor Info - Takes more space */}
-                <div className="md:col-span-2">
-                  <p className="text-xs uppercase tracking-[0.3em] text-[#636363] mb-3">
+                <div className="md:col-span-2 text-center md:text-left">
+                  <p className="text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[#636363] mb-2 sm:mb-3">
                     {language === "en" ? "Our Pastor" : "我们的牧师"}
                   </p>
-                  <h2 className="text-2xl md:text-3xl font-bold text-[#fbf8f3] mb-1">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#fbf8f3] mb-1">
                     {language === "en" ? "Pastor Merry Jeng" : "郑牧师"}
                   </h2>
-                  <p className="text-[#636363] italic mb-4">
+                  <p className="text-[#636363] italic mb-3 sm:mb-4 text-sm sm:text-base">
                     {language === "en" ? "Senior Pastor" : "主任牧师"}
                   </p>
-                  <p className="text-[#fbf8f3]/70 leading-relaxed mb-4">
+                  <p className="text-[#fbf8f3]/70 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base">
                     {language === "en"
                       ? "Pastor Merry has been serving our congregation for over 15 years. Her passion is to help people grow in their relationship with Jesus Christ and find their purpose in God's plan."
                       : "郑牧师服务我们的会众已超过15年。她的热情是帮助人们在与耶稣基督的关系中成长，并在上帝的计划中找到自己的目标。"}
                   </p>
-                  <p className="text-[#fbf8f3]/70 leading-relaxed">
+                  <p className="text-[#fbf8f3]/70 leading-relaxed text-sm sm:text-base">
                     {language === "en"
                       ? "We invite you to join us this Sunday to experience God's love and the warmth of our community."
                       : "我们邀请您本周日加入我们，体验上帝的爱和我们社区的温暖。"}
@@ -617,7 +617,7 @@ export default function Home() {
         </section>
 
         {/* Scripture Banner - DARK */}
-        <section className="py-20 bg-[#313437]">
+        <section className="py-12 sm:py-20 bg-[#313437]">
           <div className="container mx-auto px-4">
             <motion.div
               initial="hidden"
@@ -627,12 +627,12 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="max-w-4xl mx-auto text-center"
             >
-              <blockquote className="text-2xl md:text-3xl lg:text-4xl italic font-light leading-relaxed text-[#fbf8f3]">
+              <blockquote className="text-lg sm:text-2xl md:text-3xl lg:text-4xl italic font-light leading-relaxed text-[#fbf8f3] px-2">
                 {language === "en"
                   ? "\"For God so loved the world that He gave His only begotten Son, that whoever believes in Him should not perish but have everlasting life.\""
                   : "\"神爱世人，甚至将他的独生子赐给他们，叫一切信他的，不致灭亡，反得永生。\""}
               </blockquote>
-              <p className="mt-6 font-medium text-[#636363]">
+              <p className="mt-4 sm:mt-6 font-medium text-[#636363] text-sm sm:text-base">
                 {language === "en" ? "— John 3:16" : "— 约翰福音 3:16"}
               </p>
             </motion.div>

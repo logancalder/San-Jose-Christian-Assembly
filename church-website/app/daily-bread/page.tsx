@@ -117,11 +117,11 @@ function DailyBreadContent() {
       
       <main className="flex-1">
         {/* Hero - DARK */}
-        <section className="pt-20 pb-12 bg-[#313437]">
+        <section className="pt-16 sm:pt-20 pb-8 sm:pb-12 bg-[#313437]">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <Link href="/" className="inline-flex items-center text-sm mb-8 text-[#fbf8f3]/70 hover:text-[#fbf8f3] transition-colors">
-                <ArrowLeft className="mr-2 h-4 w-4" />
+              <Link href="/" className="inline-flex items-center text-xs sm:text-sm mb-6 sm:mb-8 text-[#fbf8f3]/70 hover:text-[#fbf8f3] transition-colors">
+                <ArrowLeft className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                 {language === "en" ? "Back to Home" : "返回首页"}
               </Link>
               
@@ -131,17 +131,17 @@ function DailyBreadContent() {
                 variants={fadeInVariants}
                 transition={{ duration: 0.6 }}
               >
-                <p className="text-xs uppercase tracking-[0.3em] text-[#636363] mb-4">
+                <p className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.3em] text-[#636363] mb-3 sm:mb-4">
                   {language === "en" ? "Daily Bread" : "每日经文"}
                 </p>
-                <h1 className="text-3xl md:text-4xl font-bold text-[#fbf8f3] mb-4">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#fbf8f3] mb-3 sm:mb-4">
                   {isLoading 
                     ? (language === "en" ? "Loading..." : "加载中...")
                     : verseData 
                       ? (language === "en" ? verseData.verse : verseData.verse_zh)
                       : (language === "en" ? "Verse Not Found" : "未找到经文")}
                 </h1>
-                <p className="text-[#fbf8f3]/60 mt-2">
+                <p className="text-[#fbf8f3]/60 mt-2 text-sm sm:text-base">
                   {new Date(date + 'T00:00:00').toLocaleString('en-US', {
                     year: 'numeric',
                     month: 'long',
@@ -154,13 +154,13 @@ function DailyBreadContent() {
         </section>
 
         {/* Content - LIGHT */}
-        <section className="py-16 bg-[#fbf8f3]">
+        <section className="py-10 sm:py-16 bg-[#fbf8f3]">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               {isLoading ? (
-                <div className="text-center py-12">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#272727] mx-auto mb-4"></div>
-                  <p className="text-lg text-[#636363]">
+                <div className="text-center py-8 sm:py-12">
+                  <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-2 border-[#272727] mx-auto mb-4"></div>
+                  <p className="text-base sm:text-lg text-[#636363]">
                     {language === "en" ? "Loading..." : "加载中..."}
                   </p>
                 </div>
@@ -171,32 +171,32 @@ function DailyBreadContent() {
                   variants={fadeInVariants}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <div className="bg-white p-8 md:p-12 shadow-sm">
+                  <div className="bg-white p-5 sm:p-8 md:p-12 shadow-sm">
                     {/* Language toggle at the top */}
-                    <div className="mb-8 pb-6 border-b border-[#e5e0d8] flex justify-end">
+                    <div className="mb-6 sm:mb-8 pb-4 sm:pb-6 border-b border-[#e5e0d8] flex justify-end">
                       <button 
                         onClick={toggleLanguage}
-                        className="group flex items-center gap-3 text-[#636363] hover:text-[#272727] transition-colors"
+                        className="group flex items-center gap-2 sm:gap-3 text-[#636363] hover:text-[#272727] transition-colors"
                       >
-                        <span className="text-sm uppercase tracking-[0.2em]">
+                        <span className="text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-[0.2em]">
                           {language === "en" ? "阅读中文" : "Read in English"}
                         </span>
-                        <span className="w-8 h-px bg-[#636363] group-hover:bg-[#272727] group-hover:w-12 transition-all"></span>
+                        <span className="w-6 sm:w-8 h-px bg-[#636363] group-hover:bg-[#272727] group-hover:w-10 sm:group-hover:w-12 transition-all"></span>
                       </button>
                     </div>
 
-                    <div className="prose prose-lg max-w-none">
+                    <div className="prose prose-sm sm:prose-lg max-w-none">
                       {/* If we have individual verses, render them */}
                       {(language === "en" ? verseData.verses : verseData.verses_zh)?.length > 0 ? (
                         (language === "en" ? verseData.verses : verseData.verses_zh).map((verse, index) => (
-                          <p key={index} className="mb-6 text-[#272727] leading-relaxed">
+                          <p key={index} className="mb-4 sm:mb-6 text-[#272727] leading-relaxed text-sm sm:text-base">
                             <span className="font-bold text-[#636363] mr-2">{verse.verse}</span>
                             {verse.text.trim()}
                           </p>
                         ))
                       ) : (
                         /* Otherwise, render the content text - split by verse numbers */
-                        <div className="space-y-4">
+                        <div className="space-y-3 sm:space-y-4">
                           {(() => {
                             const content = language === "en" ? verseData.content : verseData.content_zh;
                             if (!content) return null;
@@ -218,7 +218,7 @@ function DailyBreadContent() {
                             }
                             
                             return verses.map((verse, index) => (
-                              <p key={index} className="text-lg md:text-xl text-[#272727] leading-relaxed">
+                              <p key={index} className="text-base sm:text-lg md:text-xl text-[#272727] leading-relaxed">
                                 <span className="text-[#636363] font-medium mr-2">{verse.num}</span>
                                 {verse.text}
                               </p>
@@ -229,38 +229,38 @@ function DailyBreadContent() {
                     </div>
 
                     {/* Date navigation at bottom */}
-                    <div className="mt-10 pt-8 border-t border-[#e5e0d8] flex items-center justify-between">
+                    <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-[#e5e0d8] flex items-center justify-between">
                       <button
                         onClick={() => hasYesterdayEntry && router.push(`/daily-bread?date=${yesterdayDate}`)}
                         disabled={!hasYesterdayEntry}
-                        className={`flex items-center gap-2 transition-colors ${
+                        className={`flex items-center gap-1 sm:gap-2 transition-colors ${
                           hasYesterdayEntry
                             ? "text-[#636363] hover:text-[#272727] cursor-pointer"
                             : "text-[#e5e0d8] cursor-not-allowed"
                         }`}
                       >
-                        <ChevronLeft className="h-4 w-4" />
-                        <span className="text-sm uppercase tracking-[0.15em]">{language === "en" ? "Yesterday" : "昨天"}</span>
+                        <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
+                        <span className="text-xs sm:text-sm uppercase tracking-[0.1em] sm:tracking-[0.15em]">{language === "en" ? "Yesterday" : "昨天"}</span>
                       </button>
                       
                       <button
                         onClick={() => hasTomorrowEntry && !isToday && router.push(`/daily-bread?date=${tomorrowDate}`)}
                         disabled={isToday || !hasTomorrowEntry}
-                        className={`flex items-center gap-2 transition-colors ${
+                        className={`flex items-center gap-1 sm:gap-2 transition-colors ${
                           !isToday && hasTomorrowEntry
                             ? "text-[#636363] hover:text-[#272727] cursor-pointer"
                             : "text-[#e5e0d8] cursor-not-allowed"
                         }`}
                       >
-                        <span className="text-sm uppercase tracking-[0.15em]">{language === "en" ? "Tomorrow" : "明天"}</span>
-                        <ChevronRight className="h-4 w-4" />
+                        <span className="text-xs sm:text-sm uppercase tracking-[0.1em] sm:tracking-[0.15em]">{language === "en" ? "Tomorrow" : "明天"}</span>
+                        <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
                       </button>
                     </div>
                   </div>
                 </motion.div>
               ) : (
-                <div className="text-center py-12 bg-white shadow-sm">
-                  <p className="text-lg text-red-500">
+                <div className="text-center py-8 sm:py-12 bg-white shadow-sm">
+                  <p className="text-base sm:text-lg text-red-500">
                     {language === "en" ? "Verse not found" : "未找到经文"}
                   </p>
                 </div>
@@ -270,15 +270,15 @@ function DailyBreadContent() {
         </section>
 
         {/* CTA - DARK */}
-        <section className="py-12 bg-[#313437]">
+        <section className="py-8 sm:py-12 bg-[#313437]">
           <div className="container mx-auto px-4 text-center">
-            <p className="text-[#fbf8f3]/70 mb-4">
+            <p className="text-[#fbf8f3]/70 mb-3 sm:mb-4 text-sm sm:text-base">
               {language === "en" 
                 ? "Want to receive daily devotionals?" 
                 : "想要接收每日灵修？"}
             </p>
             <Link href="/subscribe">
-              <Button className="rounded-none bg-[#fbf8f3] text-[#272727] hover:bg-white">
+              <Button className="rounded-none bg-[#fbf8f3] text-[#272727] hover:bg-white text-sm sm:text-base">
                 {language === "en" ? "Subscribe" : "订阅"}
               </Button>
             </Link>

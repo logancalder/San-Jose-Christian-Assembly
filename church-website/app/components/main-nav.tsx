@@ -49,15 +49,15 @@ export default function MainNav({ language, toggleLanguage, currentPage }: MainN
       }`}
     >
       <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center">
-          <div className="w-1/4">
-            <Link href="/" className="font-bold text-xl flex items-center gap-2 text-[#fbf8f3]">
-              <img src="/logo.png" alt="SJCA Logo" className="h-[30px] w-auto" />
-              <span className="hidden sm:inline">SJCA</span>
-            </Link>
-          </div>
+        <div className="flex items-center justify-between">
+          {/* Logo - Left */}
+          <Link href="/" className="font-bold text-xl flex items-center gap-2 text-[#fbf8f3]">
+            <img src="/logo.png" alt="SJCA Logo" className="h-[30px] w-auto" />
+            <span className="hidden sm:inline">SJCA</span>
+          </Link>
 
-          <div className="hidden lg:flex items-center justify-center flex-1 space-x-8">
+          {/* Desktop Navigation - Center */}
+          <div className="hidden lg:flex items-center justify-center flex-1 space-x-8 mx-8">
             {mainNavItems.map((item) => (
               <div key={item.en} className="relative group">
                 {item.dropdown ? (
@@ -96,7 +96,8 @@ export default function MainNav({ language, toggleLanguage, currentPage }: MainN
             ))}
           </div>
 
-          <div className="w-1/4 flex items-center justify-end space-x-3">
+          {/* Right Side - Social, Language, Menu */}
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link 
               href="https://www.instagram.com/sjcachurch" 
               target="_blank" 

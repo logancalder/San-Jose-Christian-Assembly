@@ -95,7 +95,7 @@ export default function ValuesPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
+        <section className="relative h-[40vh] sm:h-[50vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
             <img
               src="/easter_25/DSC_0471.jpg"
@@ -109,7 +109,7 @@ export default function ValuesPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="font-bold text-4xl md:text-6xl mb-4"
+              className="font-bold text-3xl sm:text-4xl md:text-6xl mb-3 sm:mb-4"
             >
               {language === "en" ? "OUR VALUES" : "我们的价值观"}
             </motion.h1>
@@ -117,7 +117,7 @@ export default function ValuesPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xs uppercase tracking-[0.3em] text-[#fbf8f3]/50"
+              className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.3em] text-[#fbf8f3]/50 px-2"
             >
               {language === "en" 
                 ? "The foundational principles that guide everything we do"
@@ -127,7 +127,7 @@ export default function ValuesPage() {
         </section>
 
         {/* Core Values - Vertical List */}
-        <section className="py-20 bg-[#fbf8f3]">
+        <section className="py-12 sm:py-20 bg-[#fbf8f3]">
           <div className="container mx-auto px-4">
             {coreValues.map((value, index) => (
               <motion.div
@@ -137,16 +137,16 @@ export default function ValuesPage() {
                 viewport={{ once: true }}
                 variants={fadeInVariants}
                 transition={{ duration: 0.6 }}
-                className={`max-w-4xl mx-auto mb-16 ${index !== coreValues.length - 1 ? 'border-b border-[#272727]/10 pb-16' : ''}`}
+                className={`max-w-4xl mx-auto mb-10 sm:mb-16 ${index !== coreValues.length - 1 ? 'border-b border-[#272727]/10 pb-10 sm:pb-16' : ''}`}
               >
-                <h2 className="text-3xl font-bold mb-6 text-center text-[#272727]">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center text-[#272727]">
                   {language === "en" ? value.title.en : value.title.zh}
                 </h2>
-                <div className="space-y-6">
-                  <p className="text-xl text-[#636363] text-center leading-relaxed">
+                <div className="space-y-4 sm:space-y-6">
+                  <p className="text-base sm:text-xl text-[#636363] text-center leading-relaxed">
                     {language === "en" ? value.description.en : value.description.zh}
                   </p>
-                  <p className="text-[#636363]/80 text-center leading-relaxed">
+                  <p className="text-[#636363]/80 text-center leading-relaxed text-sm sm:text-base">
                     {language === "en" ? value.details.en : value.details.zh}
                   </p>
                 </div>
@@ -156,7 +156,7 @@ export default function ValuesPage() {
         </section>
 
         {/* Mission Statement - DARK */}
-        <section className="py-20 bg-[#313437]">
+        <section className="py-12 sm:py-20 bg-[#313437]">
           <div className="container mx-auto px-4">
             <motion.div
               initial="hidden"
@@ -166,10 +166,10 @@ export default function ValuesPage() {
               transition={{ duration: 0.6 }}
               className="max-w-4xl mx-auto text-center"
             >
-              <p className="text-xs uppercase tracking-[0.3em] text-[#636363] mb-4">
+              <p className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.3em] text-[#636363] mb-3 sm:mb-4">
                 {language === "en" ? "Our Mission" : "我们的使命"}
               </p>
-              <blockquote className="text-2xl md:text-3xl lg:text-4xl italic font-light leading-relaxed text-[#fbf8f3]">
+              <blockquote className="text-lg sm:text-2xl md:text-3xl lg:text-4xl italic font-light leading-relaxed text-[#fbf8f3] px-2">
                 {language === "en"
                   ? "\"Growing together in faith, hope, and love.\""
                   : "\"在信心、盼望和爱中一起成长。\""}

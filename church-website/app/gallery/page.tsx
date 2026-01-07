@@ -105,11 +105,11 @@ export default function GalleryPage() {
       
       <main className="pt-20 pb-12">
         <div className="container mx-auto px-4">
-          <div className="mb-8 text-center">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <div className="mb-6 sm:mb-8 text-center">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
               {language === "en" ? "Photo Gallery" : "照片库"}
             </h1>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-sm sm:text-base">
               {language === "en" 
                 ? "Browse through our collection of church photos"
                 : "浏览我们的教会照片集"}

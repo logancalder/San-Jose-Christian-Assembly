@@ -79,7 +79,7 @@ export default function ConnectPage() {
 
       <main className="flex-1">
         {/* Hero Section - Values style */}
-        <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
+        <section className="relative h-[40vh] sm:h-[50vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
             <img
               src="/easter_25/!cottoncandygroup.jpg"
@@ -93,7 +93,7 @@ export default function ConnectPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="font-bold text-4xl md:text-6xl mb-4"
+              className="font-bold text-3xl sm:text-4xl md:text-6xl mb-3 sm:mb-4"
             >
               {language === "en" ? "CONNECT" : "联系我们"}
             </motion.h1>
@@ -101,7 +101,7 @@ export default function ConnectPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xs uppercase tracking-[0.3em] text-[#fbf8f3]/50"
+              className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.3em] text-[#fbf8f3]/50"
             >
               {language === "en" 
                 ? "We'd love to hear from you"
@@ -121,56 +121,56 @@ export default function ConnectPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="p-8 md:p-16 lg:p-20"
+                className="p-5 sm:p-8 md:p-16 lg:p-20"
               >
-                <p className="text-[#636363] text-xs uppercase tracking-[0.3em] mb-3">
+                <p className="text-[#636363] text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.3em] mb-2 sm:mb-3 text-center lg:text-left">
                   {language === "en" ? "Send a Message" : "发送消息"}
                 </p>
-                <h2 className="text-2xl md:text-3xl font-bold text-[#272727] mb-8">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#272727] mb-6 sm:mb-8 text-center lg:text-left">
                   {language === "en" ? "We'd love to connect" : "我们很乐意与您联系"}
                 </h2>
 
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid sm:grid-cols-2 gap-5">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                  <div className="grid sm:grid-cols-2 gap-4 sm:gap-5">
                     <div>
-                      <label className="block mb-2 text-xs uppercase tracking-[0.1em] font-medium text-[#636363]">
+                      <label className="block mb-2 text-[10px] sm:text-xs uppercase tracking-[0.1em] font-medium text-[#636363]">
                         {language === "en" ? "Name" : "姓名"}
                       </label>
                       <input
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full p-4 border border-[#272727]/10 bg-white focus:border-[#272727] focus:outline-none transition-colors text-[#272727]"
+                        className="w-full p-3 sm:p-4 border border-[#272727]/10 bg-white focus:border-[#272727] focus:outline-none transition-colors text-[#272727] text-sm sm:text-base"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block mb-2 text-xs uppercase tracking-[0.1em] font-medium text-[#636363]">
+                      <label className="block mb-2 text-[10px] sm:text-xs uppercase tracking-[0.1em] font-medium text-[#636363]">
                         {language === "en" ? "Email" : "电子邮件"}
                       </label>
                       <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full p-4 border border-[#272727]/10 bg-white focus:border-[#272727] focus:outline-none transition-colors text-[#272727]"
+                        className="w-full p-3 sm:p-4 border border-[#272727]/10 bg-white focus:border-[#272727] focus:outline-none transition-colors text-[#272727] text-sm sm:text-base"
                         required
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block mb-2 text-xs uppercase tracking-[0.1em] font-medium text-[#636363]">
+                    <label className="block mb-2 text-[10px] sm:text-xs uppercase tracking-[0.1em] font-medium text-[#636363]">
                       {language === "en" ? "Message" : "消息"}
                     </label>
                     <textarea
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      className="w-full p-4 border border-[#272727]/10 bg-white focus:border-[#272727] focus:outline-none transition-colors text-[#272727] h-32 resize-none"
+                      className="w-full p-3 sm:p-4 border border-[#272727]/10 bg-white focus:border-[#272727] focus:outline-none transition-colors text-[#272727] h-28 sm:h-32 resize-none text-sm sm:text-base"
                       required
                     ></textarea>
                   </div>
                   <Button 
                     type="submit" 
-                    className="w-full rounded-none bg-[#272727] text-[#fbf8f3] hover:bg-[#313437] py-5 text-base font-medium tracking-wide"
+                    className="w-full rounded-none bg-[#272727] text-[#fbf8f3] hover:bg-[#313437] py-4 sm:py-5 text-sm sm:text-base font-medium tracking-wide"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
@@ -186,8 +186,8 @@ export default function ConnectPage() {
               </motion.div>
 
               {/* Map Side */}
-              <div className="p-8 md:p-16 lg:p-20">
-                <div className="relative h-full min-h-[400px]">
+              <div className="p-5 sm:p-8 md:p-16 lg:p-20">
+                <div className="relative h-full min-h-[300px] sm:min-h-[400px]">
                   <div className="absolute inset-0 bg-[#272727]">
                     <iframe
                       src="https://www.google.com/maps?q=215+Topaz+St,+Milpitas,+CA+95035&output=embed"
@@ -201,15 +201,15 @@ export default function ConnectPage() {
                   </div>
                   
                   {/* Address overlay */}
-                  <div className="absolute bottom-4 left-4">
-                    <div className="bg-[#272727] p-5">
-                      <p className="text-[#fbf8f3] font-medium mb-1">215 Topaz St</p>
-                      <p className="text-[#fbf8f3]/60 text-sm mb-3">Milpitas, CA 95035</p>
+                  <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4">
+                    <div className="bg-[#272727] p-3 sm:p-5">
+                      <p className="text-[#fbf8f3] font-medium mb-1 text-sm sm:text-base">215 Topaz St</p>
+                      <p className="text-[#fbf8f3]/60 text-xs sm:text-sm mb-2 sm:mb-3">Milpitas, CA 95035</p>
                       <a 
                         href="https://maps.google.com/?q=215+Topaz+St,+Milpitas,+CA+95035"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#fbf8f3] text-sm underline underline-offset-4 hover:text-white"
+                        className="text-[#fbf8f3] text-xs sm:text-sm underline underline-offset-4 hover:text-white"
                       >
                         {language === "en" ? "Get Directions →" : "获取路线 →"}
                       </a>

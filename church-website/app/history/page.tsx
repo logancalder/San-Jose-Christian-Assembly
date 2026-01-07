@@ -128,7 +128,7 @@ export default function HistoryPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
+        <section className="relative h-[40vh] sm:h-[50vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
             <img
               src="/easter_25/DSC_0592.jpg"
@@ -142,7 +142,7 @@ export default function HistoryPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="font-bold text-4xl md:text-6xl mb-4"
+              className="font-bold text-3xl sm:text-4xl md:text-6xl mb-3 sm:mb-4"
             >
               {language === "en" ? "OUR HISTORY" : "我们的历史"}
             </motion.h1>
@@ -150,7 +150,7 @@ export default function HistoryPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xs uppercase tracking-[0.3em] text-[#fbf8f3]/50"
+              className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.3em] text-[#fbf8f3]/50"
             >
               {language === "en" 
                 ? "The story of our family in Christ"
@@ -160,7 +160,7 @@ export default function HistoryPage() {
         </section>
 
         {/* Timeline */}
-        <section className="py-20 bg-[#fbf8f3]" ref={timelineRef}>
+        <section className="py-12 sm:py-20 bg-[#fbf8f3]" ref={timelineRef}>
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto relative">
               {/* Timeline line */}
@@ -172,7 +172,7 @@ export default function HistoryPage() {
               </div>
 
               {/* Events */}
-              <div className="space-y-16">
+              <div className="space-y-10 sm:space-y-16">
                 {timelineEvents.map((event, index) => (
                   <motion.div
                     key={index}
@@ -184,25 +184,25 @@ export default function HistoryPage() {
                     className={`relative pl-12 md:pl-0 ${index % 2 === 0 ? 'md:pr-[55%]' : 'md:pl-[55%]'}`}
                   >
                     {/* Year dot */}
-                    <div className={`absolute left-0 md:left-1/2 md:-translate-x-1/2 w-8 h-8 bg-[#272727] flex items-center justify-center`}>
-                      <div className="w-3 h-3 bg-[#fbf8f3]"></div>
+                    <div className={`absolute left-0 md:left-1/2 md:-translate-x-1/2 w-6 h-6 sm:w-8 sm:h-8 bg-[#272727] flex items-center justify-center`}>
+                      <div className="w-2 h-2 sm:w-3 sm:h-3 bg-[#fbf8f3]"></div>
                     </div>
 
                     {/* Content card */}
                     <div className="bg-white shadow-sm overflow-hidden">
-                      <div className="h-48 overflow-hidden">
+                      <div className="h-36 sm:h-48 overflow-hidden">
                         <img
                           src={event.image}
                           alt={language === "en" ? event.title.en : event.title.zh}
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <div className="p-6">
-                        <div className="text-[#636363] text-sm font-medium mb-2">{event.year}</div>
-                        <h3 className="text-xl font-bold text-[#272727] mb-2">
+                      <div className="p-4 sm:p-6">
+                        <div className="text-[#636363] text-xs sm:text-sm font-medium mb-1 sm:mb-2">{event.year}</div>
+                        <h3 className="text-lg sm:text-xl font-bold text-[#272727] mb-2">
                           {language === "en" ? event.title.en : event.title.zh}
                         </h3>
-                        <p className="text-[#636363]">
+                        <p className="text-[#636363] text-sm sm:text-base">
                           {language === "en" ? event.description.en : event.description.zh}
                         </p>
                       </div>
@@ -215,7 +215,7 @@ export default function HistoryPage() {
         </section>
 
         {/* CTA */}
-        <section className="py-16 bg-[#313437]">
+        <section className="py-10 sm:py-16 bg-[#313437]">
           <div className="container mx-auto px-4 text-center">
             <motion.div
               initial="hidden"
@@ -224,10 +224,10 @@ export default function HistoryPage() {
               variants={fadeInVariants}
               className="max-w-2xl mx-auto"
             >
-              <h2 className="text-2xl font-bold text-[#fbf8f3] mb-4">
+              <h2 className="text-xl sm:text-2xl font-bold text-[#fbf8f3] mb-3 sm:mb-4">
                 {language === "en" ? "Be Part of Our Story" : "成为我们故事的一部分"}
               </h2>
-              <p className="text-[#fbf8f3]/70 mb-8">
+              <p className="text-[#fbf8f3]/70 text-sm sm:text-base px-2">
                 {language === "en"
                   ? "Join us as we continue to write the next chapter together."
                   : "加入我们，一起书写下一章。"}
