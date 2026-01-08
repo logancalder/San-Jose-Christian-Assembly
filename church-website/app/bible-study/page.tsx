@@ -149,7 +149,7 @@ export default function BibleStudyPage() {
                     <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-[#fbf8f3]">
                       {formatDate(DateTime.fromISO(nextBibleStudy.start_time).setZone('America/Los_Angeles'), language)}
                     </h2>
-                  </div>
+                      </div>
                   
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-[#fbf8f3]/80">
                     <div className="flex items-center gap-2 sm:gap-3">
@@ -157,7 +157,7 @@ export default function BibleStudyPage() {
                       <span className="text-base sm:text-lg">
                         {formatTime(DateTime.fromISO(nextBibleStudy.start_time).setZone('America/Los_Angeles'), language)}
                       </span>
-                    </div>
+                      </div>
                     <div className="hidden sm:block w-px h-6 bg-[#636363]"></div>
                     <div className="flex items-center gap-2 sm:gap-3">
                       <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-[#636363]" />
@@ -167,14 +167,14 @@ export default function BibleStudyPage() {
                           : (nextBibleStudy.location_zh || nextBibleStudy.location_en || "215 Topaz St, Milpitas, CA 95035")}
                       </span>
                     </div>
-                  </div>
+                </div>
                 </>
               ) : (
                 <p className="text-[#fbf8f3]/70 text-base sm:text-lg py-4">
-                  {language === "en" 
+                    {language === "en" 
                     ? "No upcoming Bible Study scheduled. Check back soon!"
                     : "暂无即将举行的查经。请稍后再来查看！"}
-                </p>
+                  </p>
               )}
             </div>
           </motion.div>

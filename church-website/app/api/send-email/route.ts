@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import nodemailer from "nodemailer"
+import { Resend } from "resend"
 
 export async function POST(request: Request) {
   try {
@@ -13,29 +13,23 @@ export async function POST(request: Request) {
       )
     }
 
-    // Check for required environment variables
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_APP_PASSWORD) {
-      console.error("Missing email environment variables")
+    // Check for required environment variable
+    if (!process.env.RESEND_API_KEY) {
+      console.error("Missing RESEND_API_KEY environment variable")
       return NextResponse.json(
         { error: "Email service not configured" },
         { status: 500 }
       )
     }
 
-    // Create transporter inside the handler for serverless compatibility
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_APP_PASSWORD,
-      },
-    })
+    // Initialize Resend
+    const resend = new Resend(process.env.RESEND_API_KEY)
 
-    // Email content
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER, // Send to the same email that's sending
-      replyTo: email, // Reply goes to the person who submitted the form
+    // Send email
+    const { data, error } = await resend.emails.send({
+      from: "SJCA Contact Form <onboarding@resend.dev>", // Resend default domain for testing
+      to: "sjcamessenger@gmail.com",
+      replyTo: email,
       subject: `New Connect Form Submission from ${name}`,
       text: `
 Name: ${name}
@@ -51,11 +45,17 @@ Time: ${new Date().toLocaleString()}
 <p>${message}</p>
 <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
       `,
+    })
+
+    if (error) {
+      console.error("Resend error:", error)
+      return NextResponse.json(
+        { error: error.message || "Failed to send email" },
+        { status: 500 }
+      )
     }
 
-    // Send email
-    const info = await transporter.sendMail(mailOptions)
-    console.log("Email sent successfully:", info.messageId)
+    console.log("Email sent successfully:", data?.id)
 
     return NextResponse.json(
       { message: "Email sent successfully" },
